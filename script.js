@@ -1,3 +1,21 @@
+// add button functionality
+const btnArray = document.querySelectorAll("btn");
+
+for (let i = 0; i < btnArray.length; i++) {
+    (function(index) {
+        btnArray[index].addEventListener("click", function(e) {
+            console.log(e.target.className);
+        })
+    })(i);
+};
+
+// Create a stored display value
+let displayValue = 0;
+
+const changeDisplay = function(button) {
+    
+}
+
 // Create operator function
 const operate = function(a, operator, b) {
     switch (operator) {
