@@ -1,3 +1,17 @@
+// create a function to update the display when buttons are pressed
+const display = document.querySelector('#screen');
+
+function displayValues(numbers) {
+    const elements = document.getElementsByClassName('content');
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    };
+    const content = document.createElement('div');
+    content.classList.add('content');
+    content.textContent = numbers;
+    display.appendChild(content);
+}
+
 // add button functionality
 const btnArray = document.querySelectorAll("btn");
 
@@ -10,22 +24,43 @@ for (let i = 0; i < btnArray.length; i++) {
 };
 
 // Create a stored display value
-let displayValue = 0;
+let displayValue = '';
+let operator = 'add'; //default operator
 
-const changeDisplay = function(button) {
-    
-}
+const inputOperation = function(button) {
+    console.log(button);
+    if (button >= '0' && button <= '9') {
+        displayValue += button.toString();
+        console.log(displayValue)
+    } else if (button == 'equals') {
+        console.log("Equals button");
+        calcOutput = operate(a, operator, displayValue);
+        displayValue = '';
+        console.log(calcOutput);
+    }  else {
+        console.log("Other operator button");
+        // store display value number
+        a = parseInt(displayValue); // this is not storing the display value -- returning ''
+        // store desired operation
+        operator = button;
+        // reset display value
+        displayValue = '';
+        console.log(displayValue);
+        console.log(a);
+        console.log(operator);
+    }
+};
 
 // Create operator function
 const operate = function(a, operator, b) {
     switch (operator) {
-        case "+":
+        case "add":
             return add(a,b);
-        case "-":
+        case "subtract":
             return subtract(a,b);
-        case "*":
-            return multiple(a,b);
-        case "/":
+        case "multiply":
+            return multiply(a,b);
+        case "divide":
             return divide(a,b);
         default:
             return "ERROR!";
