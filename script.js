@@ -1,3 +1,18 @@
+// Create operator function
+const operate = function(a, operator, b) {
+    switch (operator) {
+        case "+":
+            return add(a,b);
+        case "-":
+            return subtract(a,b);
+        case "*":
+            return multiple(a,b);
+        case "/":
+            return divide(a,b);
+        default:
+            return "ERROR!";
+    };
+};
 
 // Create basic calculator functions
 const add = function (a, b) {
