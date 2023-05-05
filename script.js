@@ -8,7 +8,7 @@ function displayValues(numbers) {
     };
     const content = document.createElement('div');
     content.classList.add('content');
-    content.textContent = numbers;
+    content.textContent = Math.round(numbers * 100) / 100;
     display.appendChild(content);
 }
 
@@ -18,12 +18,13 @@ const btnArray = document.querySelectorAll("btn");
 for (let i = 0; i < btnArray.length; i++) {
     (function(index) {
         btnArray[index].addEventListener("click", function(e) {
-            console.log(e.target.className);
+            inputOperation(e.target.className);
         })
     })(i);
 };
 
 // Create a stored display value
+let a = 0;
 let displayValue = '';
 let operator = 'add'; //default operator
 
@@ -31,23 +32,26 @@ const inputOperation = function(button) {
     console.log(button);
     if (button >= '0' && button <= '9') {
         displayValue += button.toString();
-        console.log(displayValue)
+        displayValues(displayValue);
     } else if (button == 'equals') {
         console.log("Equals button");
         calcOutput = operate(a, operator, displayValue);
-        displayValue = '';
-        console.log(calcOutput);
+        displayValue = calcOutput;
+        displayValues(calcOutput);
+    } else if (button == 'clear') {
+        return clear();
     }  else {
         console.log("Other operator button");
         // store display value number
         a = parseInt(displayValue); // this is not storing the display value -- returning ''
+        console.log(a);
         // store desired operation
         operator = button;
         // reset display value
         displayValue = '';
-        console.log(displayValue);
-        console.log(a);
-        console.log(operator);
+        //displayValues(displayValue);
+        //console.log(a);
+        //console.log(operator);
     }
 };
 
@@ -69,22 +73,31 @@ const operate = function(a, operator, b) {
 
 // Create basic calculator functions
 const add = function (a, b) {
-    return a + b;
+    return parseInt(a)+parseInt(b);
 };
 
 const subtract = function (a, b) {
-    return a-b;
+    return parseInt(a)-parseInt(b);
 };
 
 const multiply = function (a, b) {
-    return a*b;
+    return parseInt(a)*parseInt(b);
 };
 
 const divide = function (a,b) {
-    if (b == 0) {
-        return "You can't divide by zero!";
+    if (b == "0") {
+        alert("You can't divide by zero you numpty!")
+        return 0;
     }
     else {
-        return a/b;
+        return parseInt(a)/parseInt(b);
     }
+};
+
+const clear = function () {
+    console.log('clear pressed');
+    a = 0;
+    displayValue = '';
+    operator = 'add';
+    return displayValues(0);
 };
